@@ -34,6 +34,9 @@ Java and Spark is installed by default. Dont forget to run the `prepare.sh` scri
 
 ```
 $ start-dfs.sh
+$ hdfs dfs -mkdir -p /user/yannis
+$ hdfs dfs -chown yannis:yannis /user/yannis
+$ hdfs dfs -copyFromLocal <file> hdfs://vm1/user/yannis
 $ stop-dfs.sh
 ```
 
