@@ -65,6 +65,14 @@ $ stop-yarn.sh
 ```
 $ /opt/spark/sbin/start-all.sh
 $ /opt/spark/bin/spark-submit --master spark://vm1:7077 --deploy-mode client estpi_2.11-1.0.jar
+
+$ HADOOP_CONF_DIR=/opt/hadoop/etc/hadoop /opt/spark/bin/spark-submit \
+    --master yarn \
+    --deploy-mode cluster \
+    --num-executors 4 \
+    --executor-memory 512M \
+    --driver-memory 512M \
+    estpi_2.11-1.0.jar
 ```
 
 Spark master provides a UI on vm1:8080 for master and on :8081 for workers. It receives jobs on vm1:7077. While running a job a SparkUI is launched, typically on vm1:4040 onwards.
