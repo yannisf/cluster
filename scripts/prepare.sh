@@ -21,6 +21,5 @@ cp spark-conf/spark-env.sh.template vm1/spark-env.sh
 cp spark-conf/spark-env.sh.template vm2/spark-env.sh
 cp spark-conf/slaves vm1/slaves
 
-cp hadoop-conf/* vm1/
-cp hadoop-conf/core-site.xml hadoop-conf/hdfs-site.xml vm1/
-cp hadoop-conf/core-site.xml hadoop-conf/hdfs-site.xml vm2/
+cp -R hadoop-conf vm1/
+cp -R hadoop-conf vm2/

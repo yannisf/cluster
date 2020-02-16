@@ -28,9 +28,7 @@ Java and Spark is installed by default. Dont forget to run the `prepare.sh` scri
 
 ## Launching
 
-### Hadoop
-
-#### Start/Stop HDFS
+### Start/Stop HDFS
 
 ```
 $ start-dfs.sh
@@ -51,6 +49,16 @@ $ stop-dfs.sh
 ```
  $ hadoop fs -copyFromLocal OpenJDK8U-jdk_x64_linux_hotspot_8u232b09.tar.gz hdfs://vm1/
  ```
+
+### Start/Stop YARN
+
+```
+$ start-yarn.sh
+$ stop-yarn.sh
+```
+
+* Resource Manager: http://vm1:8088
+* Node Manager: http://vm1:8042
 
 ### Start spark cluser in standalone mode
 
