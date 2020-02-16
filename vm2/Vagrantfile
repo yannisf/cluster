@@ -10,21 +10,30 @@ Vagrant.configure("2") do |config|
     hostnamectl set-hostname vm2
     sed -i '/127\.0\.1\.1/d' /etc/hosts
     echo "192.168.1.102	vm2" >> /etc/hosts
-    apt-get update && apt-get install -y nfs-common
+
+    apt-get update && apt-get install -y nfs-common pdsh
     mkdir /cluster
     chmod 777 /cluster
     echo "vm1:/cluster /cluster nfs defaults" >> /etc/fstab
     mount -t nfs vm1:/cluster /cluster
+
     tar xf /vagrant/OpenJDK8U-jdk_x64_linux_hotspot_8u232b09.tar.gz -C /opt
-    tar xf /vagrant/spark-2.4.4-bin-hadoop2.7.tgz -C /opt
     ln -s /opt/jdk8u232-b09 /opt/jdk8
-    ln -s /opt/spark-2.4.4-bin-hadoop2.7 /opt/spark
     echo "JAVA_HOME=/opt/jdk8" >> /etc/environment
+
+    tar xf /vagrant/hadoop-3.2.1.tar.gz -C /opt
+    ln -s /opt/hadoop-3.2.1 /opt/hadoop
+    chown -R vagrant:vagrant /opt/hadoop-3.2.1 /opt/hadoop
+    mkdir /disk1 && chown vagrant /disk1
+    cp /vagrant/core-site.xml /vagrant/hdfs-site.xml /opt/hadoop/etc/hadoop
+
+    tar xf /vagrant/spark-2.4.5-bin-hadoop2.7.tgz -C /opt
+    ln -s /opt/spark-2.4.5-bin-hadoop2.7 /opt/spark
     cp /vagrant/spark-env.sh /opt/spark/conf
   SHELL
+
   config.vm.provision "shell", privileged: false, inline: <<-SHELL
     cat /vagrant/vmcluster.id_rsa.pub >> /home/vagrant/.ssh/authorized_keys
     cp /vagrant/vmcluster.id_rsa /home/vagrant/.ssh/id_rsa
   SHELL
 end
-

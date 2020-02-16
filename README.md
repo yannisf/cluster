@@ -22,5 +22,38 @@ Java and Spark is installed by default. Dont forget to run the `prepare.sh` scri
 ## Scripts
 
 - `start.sh`: Starts all VMs
-- `stop.sh`: Stops all VMs 
+- `stop.sh`: Stops all VMs
 - `destroy.sh`: Destroys all VMs
+
+
+## Launching
+
+### Hadoop
+
+#### Start/Stop HDFS
+
+```
+$ start-dfs.sh
+$ stop-dfs.sh
+```
+
+* Namenode: hdfs://vm1:8020/
+* HTTP: http://vm1:9870/
+
+* Datanode: vm1:9866
+* HTTP: http://vm1:9864
+
+#### File operations
+
+```
+ $ hadoop fs -copyFromLocal OpenJDK8U-jdk_x64_linux_hotspot_8u232b09.tar.gz hdfs://vm1/
+ ```
+
+### Start spark cluser in standalone mode
+
+```
+$ /opt/spark/sbin/start-all.sh
+$ /opt/spark/bin/spark-submit --master spark://vm1:7077 --deploy-mode client estpi_2.11-1.0.jar
+```
+
+Spark master provides a UI on vm1:8080 for master and on :8081 for workers. It receives jobs on vm1:7077. While running a job a SparkUI is launched, typically on vm1:4040 onwards.
